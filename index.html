@@ -1,0 +1,173 @@
+<html>
+  <head>
+    <style>
+      h1 {
+        text-align: center;
+      }
+      h2 {
+        font-size: 30px;
+        text-align: center;
+      }
+      #button {
+        position: absolute;
+        left: 600px;
+        top: 200px;
+      }
+      #textbox {
+        position: absolute;
+        left: 550px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Datum räknare!</h1>
+    <h2>Ange datum!</h2>
+    <textarea placeholder="Ange datum" id="textbox"></textarea>
+    <button id="button" onclick="calculateDate()">Räkna!</button>
+    <h2 id="result"></h2>
+    <script>
+      function calculateDate() {
+        var date = document.getElementById("textbox").value;
+        var sum = 0;
+
+        var dateList = date.match(/\d+/g);
+        var monthList = date.match(/\b\w+\b/g);
+
+        var month = monthList[1].toUpperCase();
+        var day = dateList[0];
+        var year = dateList[1];
+        var lastDigits = year.slice(-2);
+
+        sum += Math.floor((parseInt(lastDigits) - (parseInt(lastDigits) % 12)) / 12);
+        sum += Math.trunc((parseInt(lastDigits) % 12) / 4);
+        sum += parseInt(lastDigits) % 12;
+
+        var century = parseInt(year) - parseInt(lastDigits);
+
+        if (century % 400 == 100) {
+          sum += 0;
+        } else if (century % 400 == 200) {
+          sum += 5;
+        } else if (century % 400 == 300) {
+          sum += 3;
+        } else if (century % 400 == 0) {
+          sum += 2;
+        }
+
+        var january = 4;
+        var february = (parseInt(year) % 4 == 0) ? 29 : 28;
+        var march = 14;
+        var april = 4;
+        var may = 9;
+        var june = 6;
+        var july = 11;
+        var august = 8;
+        var september = 5;
+        var october = 10;
+        var november = 7;
+        var december = 12;
+
+        if (month == "JANUARI" && parseInt(day) >= january) {
+          sum += parseInt(day) - january;
+        } else if (month == "JANUARI" && parseInt(day) <= january) {
+          sum -= january - parseInt(day);
+        }
+
+        if (month == "FEBRUARI" && parseInt(day) >= february) {
+          sum += parseInt(day) - february;
+        } else if (month == "FEBRUARI" && parseInt(day) <= february) {
+          sum -= february - parseInt(day);
+        }
+
+        if (month == "MARS" && parseInt(day) >= march) {
+          sum += parseInt(day) - march;
+        } else if (month == "MARS" && parseInt(day) <= march) {
+          sum -= march - parseInt(day);
+        }
+
+        if (month == "APRIL" && parseInt(day) >= april) {
+          sum += parseInt(day) - april;
+        } else if (month == "APRIL" && parseInt(day) <= april) {
+          sum -= april - parseInt(day);
+        }
+
+        if (month == "MAJ" && parseInt(day) >= may) {
+          sum += parseInt(day) - may;
+        } else if (month == "MAJ" && parseInt(day) <= may) {
+          sum -= may - parseInt(day);
+        }
+
+        if (month == "JUNI" && parseInt(day) >= june) {
+          sum += parseInt(day) - june;
+        } else if (month == "JUNI" && parseInt(day) <= june) {
+          sum -= june - parseInt(day);
+        }
+
+        if (month == "JULI" && parseInt(day) >= july) {
+          sum += parseInt(day) - july;
+        } else if (month == "JULI" && parseInt(day) <= july) {
+          sum -= july - parseInt(day);
+        }
+
+        if (month == "AUGUSTI" && parseInt(day) >= august) {
+          sum += parseInt(day) - august;
+        } else if (month == "AUGUSTI" && parseInt(day) <= august) {
+          sum -= august - parseInt(day);
+        }
+
+        if (month == "SEPTEMBER" && parseInt(day) >= september) {
+          sum += parseInt(day) - september;
+        } else if (month == "SEPTEMBER" && parseInt(day) <= september) {
+          sum -= september - parseInt(day);
+        }
+
+        if (month == "OKTOBER" && parseInt(day) >= october) {
+          sum += parseInt(day) - october;
+        } else if (month == "OKTOBER" && parseInt(day) <= october) {
+          sum -= october - parseInt(day);
+        }
+
+        if (month == "NOVEMBER" && parseInt(day) >= november) {
+          sum += parseInt(day) - november;
+        } else if (month == "NOVEMBER" && parseInt(day) <= november) {
+          sum -= november - parseInt(day);
+        }
+
+        if (month == "DECEMBER" && parseInt(day) >= december) {
+          sum += parseInt(day) - december;
+        } else if (month == "DECEMBER" && parseInt(day) <= december) {
+          sum -= december - parseInt(day);
+        }
+
+        if (sum < 0) {
+          var absSum = Math.abs(sum);
+          if (absSum > 7) {
+            sum += Math.floor((absSum - (absSum % 7)) / 7 + 1) * 7;
+          } else if (absSum <= 7) {
+            sum += 7;
+          }
+        }
+
+        sum = sum % 7;
+
+        var resultElement = document.getElementById("result");
+
+        if (sum == 0) {
+          resultElement.innerText = "\n\n\nDet är en Söndag!";
+        } else if (sum == 1) {
+          resultElement.innerText = "\n\n\nDet är en Måndag!";
+        } else if (sum == 2) {
+          resultElement.innerText = "\n\n\nDet är en Tisdag!";
+        } else if (sum == 3) {
+          resultElement.innerText = "\n\n\nDet är en Onsdag!";
+        } else if (sum == 4) {
+          resultElement.innerText = "\n\n\nDet är en Torsdag!";
+        } else if (sum == 5) {
+          resultElement.innerText = "\n\n\nDet är en Fredag!";
+        } else if (sum == 6) {
+          resultElement.innerText = "\n\n\nDet är en Lördag!";
+        }
+      }
+    </script>
+  </body>
+</html>
